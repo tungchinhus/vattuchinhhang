@@ -1,0 +1,136 @@
+<!-- Top Header Bar -->
+<div class="top-header">
+  <div class="container">
+    <div class="top-header-content">
+      <div class="company-name">
+        CÔNG TY TNHH TM DV – KỸ THUẬT VẬT TƯ CHÍNH HÃNG
+      </div>
+      <div class="top-nav">
+        <a href="#about" class="nav-link">Giới thiệu</a>
+        <a href="#products" class="nav-link">Sản phẩm</a>
+        <a href="#contact" class="nav-link">Liên Hệ</a>
+        <div class="language-selector">
+          <select>
+            <option value="vi">Tiếng Việt</option>
+            <option value="en">English</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Main Header Section -->
+<div class="main-header">
+  <div class="container">
+    <div class="main-header-content">
+      <!-- Left Side - Logo and Contact Info -->
+      <div class="header-left">
+        <div class="logo-section">
+          <div class="logo">
+            <div class="logo-icon">VT</div>
+            <div class="logo-text">
+              <span class="company-name">VẬT TƯ</span>
+              <span class="company-subtitle">CHÍNH HÃNG</span>
+            </div>
+          </div>
+          <div class="contact-info">
+            <div class="contact-item">
+              <mat-icon class="contact-icon">home</mat-icon>
+              <span>Địa chỉ: 123 Đường ABC, Quận 1, TP. Hồ Chí Minh</span>
+            </div>
+            <div class="contact-item">
+              <mat-icon class="contact-icon">email</mat-icon>
+              <span>Email: sales@vattuchinhhang.com | Phone: 0901234567</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Side - Phone and Contact -->
+      <div class="header-right">
+        <div class="phone-section">
+          <div class="phone-icon">
+            <mat-icon>phone</mat-icon>
+          </div>
+          <div class="phone-info">
+            <div class="hotline">Hotline: 0901 234 567</div>
+            <div class="contact-numbers">
+              <span>Liên hệ: 028 1234 5678 | 028 8765 4321</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Navigation Bar -->
+<nav class="navigation-bar">
+  <div class="container">
+    <div class="nav-content">
+      <div class="nav-menu">
+        <a href="/" class="nav-item active" routerLink="/" routerLinkActive="active">TRANG CHỦ</a>
+        
+        <div class="nav-item dropdown" (click)="onDropdownToggle('products')">
+          <a href="/products" class="nav-link" routerLink="/products" routerLinkActive="active">
+            LÕI LỌC NƯỚC
+            <mat-icon class="dropdown-icon" [class.rotated]="isDropdownActive('products')">keyboard_arrow_down</mat-icon>
+          </a>
+          <div class="dropdown-menu" [class.active]="isDropdownActive('products')">
+            <a href="/products/loc-than" class="dropdown-item">Lõi lọc thân</a>
+            <a href="/products/loc-pp" class="dropdown-item">Lõi lọc PP</a>
+            <a href="/products/loc-carbon" class="dropdown-item">Lõi lọc Carbon</a>
+            <a href="/products/loc-ro" class="dropdown-item">Lõi lọc RO</a>
+            <a href="/products/loc-uf" class="dropdown-item">Lõi lọc UF</a>
+          </div>
+        </div>
+        
+        <div class="nav-item dropdown" (click)="onDropdownToggle('machines')">
+          <a href="/products" class="nav-link" routerLink="/products" routerLinkActive="active">
+            MÁY LỌC NƯỚC
+            <mat-icon class="dropdown-icon" [class.rotated]="isDropdownActive('machines')">keyboard_arrow_down</mat-icon>
+          </a>
+          <div class="dropdown-menu" [class.active]="isDropdownActive('machines')">
+            <a href="/products/may-loc-nuoc-gia-dinh" class="dropdown-item">Máy lọc nước gia đình</a>
+            <a href="/products/may-loc-nuoc-cong-nghiep" class="dropdown-item">Máy lọc nước công nghiệp</a>
+            <a href="/products/may-loc-nuoc-van-phong" class="dropdown-item">Máy lọc nước văn phòng</a>
+            <a href="/products/may-loc-nuoc-nano" class="dropdown-item">Máy lọc nước Nano</a>
+          </div>
+        </div>
+        
+        <div class="nav-item dropdown" (click)="onDropdownToggle('brands')">
+          <a href="/brands" class="nav-link" routerLink="/brands" routerLinkActive="active">
+            THƯƠNG HIỆU
+            <mat-icon class="dropdown-icon" [class.rotated]="isDropdownActive('brands')">keyboard_arrow_down</mat-icon>
+          </a>
+          <div class="dropdown-menu" [class.active]="isDropdownActive('brands')">
+            <a href="/brands/aquafilter" class="dropdown-item">Aquafilter</a>
+            <a href="/brands/pentair" class="dropdown-item">Pentair</a>
+            <a href="/brands/ge" class="dropdown-item">GE</a>
+            <a href="/brands/3m" class="dropdown-item">3M</a>
+            <a href="/brands/everpure" class="dropdown-item">Everpure</a>
+          </div>
+        </div>
+        
+        <a href="/pricing" class="nav-item" routerLink="/pricing" routerLinkActive="active">BẢNG GIÁ</a>
+        <a href="/projects" class="nav-item" routerLink="/projects" routerLinkActive="active">DỰ ÁN</a>
+        <a href="/news" class="nav-item" routerLink="/news" routerLinkActive="active">TIN TỨC</a>
+        <a href="/documents" class="nav-item" routerLink="/documents" routerLinkActive="active">TÀI LIỆU KỸ THUẬT</a>
+      </div>
+      <div class="search-cart">
+        <div class="search-box">
+          <input type="text" placeholder="Tìm kiếm sản phẩm..." class="search-input" 
+                 (keyup.enter)="onSearch($event)" #searchInput>
+          <button class="search-btn" (click)="onSearch(searchInput.value)">
+            <mat-icon>search</mat-icon>
+          </button>
+        </div>
+        <div class="cart-icon" (click)="onCartClick()">
+          <mat-icon>shopping_cart</mat-icon>
+          <span class="cart-count">{{cartCount}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

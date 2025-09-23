@@ -1,0 +1,46 @@
+<!-- Page Header -->
+<div class="page-header">
+  <div class="container">
+    <h1>Sản phẩm vật tư lọc nước</h1>
+    <p>Chuyên cung cấp các sản phẩm lọc nước chính hãng, chất lượng cao</p>
+  </div>
+</div>
+
+<!-- Category Filter -->
+<div class="category-filter">
+  <div class="container">
+    <div class="filter-tabs">
+      <button 
+        *ngFor="let category of categories"
+        mat-button
+        [class.active]="selectedCategory === category.id"
+        (click)="selectCategory(category.id)"
+        class="category-tab">
+        {{ category.name }}
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Products Grid -->
+<div class="products-section">
+  <div class="container">
+    <div class="products-header">
+      <h2>{{ getSelectedCategoryName() }}</h2>
+      <span class="product-count">{{ filteredProducts.length }} sản phẩm</span>
+    </div>
+    
+    <div class="products-grid">
+      <app-product-card 
+        *ngFor="let product of filteredProducts" 
+        [product]="product">
+      </app-product-card>
+    </div>
+    
+    <div class="no-products" *ngIf="filteredProducts.length === 0">
+      <mat-icon>inbox</mat-icon>
+      <h3>Không có sản phẩm nào</h3>
+      <p>Vui lòng chọn danh mục khác hoặc quay lại sau</p>
+    </div>
+  </div>
+</div>

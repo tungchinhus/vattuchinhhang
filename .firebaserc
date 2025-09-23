@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "vattuchinhhang-c5952"
+  },
+  "targets": {
+    "vattuchinhhang-c5952": {
+      "hosting": {
+        "vattuchinhhang": [
+          "vattuchinhhang"
+        ]
+      }
+    }
+  }
+}
