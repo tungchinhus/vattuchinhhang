@@ -20,11 +20,11 @@
   </div>
 </div>
 
-<!-- Main Header Section -->
+<!-- Main Header Section (Shopee-like: logo | search | actions) -->
 <div class="main-header">
   <div class="container">
     <div class="main-header-content">
-      <!-- Left Side - Logo and Contact Info -->
+      <!-- Left: Logo -->
       <div class="header-left">
         <div class="logo-section">
           <div class="logo">
@@ -34,20 +34,27 @@
               <span class="company-subtitle">CHÍNH HÃNG</span>
             </div>
           </div>
-          <div class="contact-info">
-            <div class="contact-item">
-              <mat-icon class="contact-icon">home</mat-icon>
-              <span>Địa chỉ: 123 Đường ABC, Quận 1, TP. Hồ Chí Minh</span>
-            </div>
-            <div class="contact-item">
-              <mat-icon class="contact-icon">email</mat-icon>
-              <span>Email: sales@vattuchinhhang.com | Phone: 0901234567</span>
-            </div>
-          </div>
         </div>
       </div>
 
-      <!-- Right Side - Phone and Contact -->
+      <!-- Center: Search -->
+      <div class="header-center">
+        <div class="search-box">
+          <input type="text" placeholder="Tìm kiếm sản phẩm..." class="search-input"
+                 (keyup.enter)="onSearch($event)" #searchInputMain>
+          <button class="search-btn" (click)="onSearch(searchInputMain.value)">
+            <mat-icon>search</mat-icon>
+          </button>
+        </div>
+        <!-- Optional quick keywords line like Shopee; keep minimal for now -->
+        <div class="search-suggestions">
+          <a routerLink="/products" class="suggestion">Lõi lọc</a>
+          <a routerLink="/products" class="suggestion">Máy lọc</a>
+          <a routerLink="/brands" class="suggestion">Thương hiệu</a>
+        </div>
+      </div>
+
+      <!-- Right: Actions (phone + cart) -->
       <div class="header-right">
         <div class="phone-section">
           <div class="phone-icon">
@@ -56,16 +63,20 @@
           <div class="phone-info">
             <div class="hotline">Hotline: 0901 234 567</div>
             <div class="contact-numbers">
-              <span>Liên hệ: 028 1234 5678 | 028 8765 4321</span>
+              <span>028 1234 5678</span>
             </div>
           </div>
+        </div>
+        <div class="cart-icon" (click)="onCartClick()">
+          <mat-icon>shopping_cart</mat-icon>
+          <span class="cart-count">{{cartCount}}</span>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Navigation Bar -->
+<!-- Navigation Bar (categories primary) -->
 <nav class="navigation-bar">
   <div class="container">
     <div class="nav-content">
@@ -118,19 +129,7 @@
         <a href="/news" class="nav-item" routerLink="/news" routerLinkActive="active">TIN TỨC</a>
         <a href="/documents" class="nav-item" routerLink="/documents" routerLinkActive="active">TÀI LIỆU KỸ THUẬT</a>
       </div>
-      <div class="search-cart">
-        <div class="search-box">
-          <input type="text" placeholder="Tìm kiếm sản phẩm..." class="search-input" 
-                 (keyup.enter)="onSearch($event)" #searchInput>
-          <button class="search-btn" (click)="onSearch(searchInput.value)">
-            <mat-icon>search</mat-icon>
-          </button>
-        </div>
-        <div class="cart-icon" (click)="onCartClick()">
-          <mat-icon>shopping_cart</mat-icon>
-          <span class="cart-count">{{cartCount}}</span>
-        </div>
-      </div>
+      <!-- search-cart removed; search moved to main header -->
     </div>
   </div>
 </nav>
