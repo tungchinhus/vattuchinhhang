@@ -2,8 +2,15 @@
 <div class="top-header">
   <div class="container">
     <div class="top-header-content">
-      <div class="company-name">
-        CÔNG TY TNHH TM DV – KỸ THUẬT VẬT TƯ CHÍNH HÃNG
+      <div class="top-left-actions">
+        <div class="top-promo-group">
+          <a class="pill-button" routerLink="/seller">Kênh Người Bán</a>
+          <span class="divider">|</span>
+          <span class="social-label">Kết nối</span>
+          <a class="social-icon fb" href="#" aria-label="Facebook"><span>f</span></a>
+          <a class="social-icon yt" href="#" aria-label="YouTube"><span>▶</span></a>
+          <a class="social-icon ig" href="#" aria-label="Instagram"><span>◎</span></a>
+        </div>
       </div>
       <div class="top-nav">
         <a href="#about" class="nav-link">Giới thiệu</a>
@@ -28,7 +35,9 @@
       <div class="header-left">
         <div class="logo-section">
           <div class="logo">
-            <div class="logo-icon">VT</div>
+            <div class="logo-icon">
+              <mat-icon>shopping_bag</mat-icon>
+            </div>
             <div class="logo-text">
               <span class="company-name">VẬT TƯ</span>
               <span class="company-subtitle">CHÍNH HÃNG</span>
@@ -54,7 +63,7 @@
         </div>
       </div>
 
-      <!-- Right: Actions (phone + cart) -->
+      <!-- Right: Actions (cart + user) -->
       <div class="header-right">
         <div class="phone-section">
           <div class="phone-icon">
@@ -71,6 +80,54 @@
           <mat-icon>shopping_cart</mat-icon>
           <span class="cart-count">{{cartCount}}</span>
         </div>
+        <div class="user-section" *ngIf="isLoggedIn">
+          <div class="user-avatar" *ngIf="getUserProfilePicture(); else defaultIcon">
+            <img [src]="getUserProfilePicture()" [alt]="getUserDisplayName()" class="profile-image">
+          </div>
+          <ng-template #defaultIcon>
+            <mat-icon class="user-icon">account_circle</mat-icon>
+          </ng-template>
+          <span class="username">{{getUserDisplayName()}}</span>
+          <mat-icon class="dropdown-icon">keyboard_arrow_down</mat-icon>
+          
+          <!-- User Dropdown Menu -->
+          <div class="user-dropdown">
+            <div class="user-info">
+              <div class="user-avatar-large">
+                <img *ngIf="getUserProfilePicture()" [src]="getUserProfilePicture()" [alt]="getUserDisplayName()" class="profile-image-large">
+                <mat-icon *ngIf="!getUserProfilePicture()" class="user-icon-large">account_circle</mat-icon>
+              </div>
+              <div class="user-details">
+                <div class="user-name">{{getUserDisplayName()}}</div>
+                <div class="user-email">{{getUserEmail()}}</div>
+              </div>
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-menu">
+              <a href="#" class="dropdown-item" (click)="onProfileClick()">
+                <mat-icon>person</mat-icon>
+                <span>Thông tin cá nhân</span>
+              </a>
+              <a href="#" class="dropdown-item">
+                <mat-icon>shopping_bag</mat-icon>
+                <span>Đơn hàng của tôi</span>
+              </a>
+              <a href="#" class="dropdown-item">
+                <mat-icon>favorite</mat-icon>
+                <span>Yêu thích</span>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item logout-item" (click)="onLogout()">
+                <mat-icon>logout</mat-icon>
+                <span>Đăng xuất</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="user-section" *ngIf="!isLoggedIn">
+          <mat-icon class="user-icon">login</mat-icon>
+          <a class="login-link" routerLink="/login">Đăng nhập</a>
+        </div>
       </div>
     </div>
   </div>
@@ -83,12 +140,12 @@
       <div class="nav-menu">
         <a href="/" class="nav-item active" routerLink="/" routerLinkActive="active">TRANG CHỦ</a>
         
-        <div class="nav-item dropdown" (click)="onDropdownToggle('products')">
+        <div class="nav-item dropdown">
           <a href="/products" class="nav-link" routerLink="/products" routerLinkActive="active">
             LÕI LỌC NƯỚC
-            <mat-icon class="dropdown-icon" [class.rotated]="isDropdownActive('products')">keyboard_arrow_down</mat-icon>
+            <mat-icon class="dropdown-icon">keyboard_arrow_down</mat-icon>
           </a>
-          <div class="dropdown-menu" [class.active]="isDropdownActive('products')">
+          <div class="dropdown-menu">
             <a href="/products/loc-than" class="dropdown-item">Lõi lọc thân</a>
             <a href="/products/loc-pp" class="dropdown-item">Lõi lọc PP</a>
             <a href="/products/loc-carbon" class="dropdown-item">Lõi lọc Carbon</a>
@@ -97,12 +154,12 @@
           </div>
         </div>
         
-        <div class="nav-item dropdown" (click)="onDropdownToggle('machines')">
+        <div class="nav-item dropdown">
           <a href="/products" class="nav-link" routerLink="/products" routerLinkActive="active">
             MÁY LỌC NƯỚC
-            <mat-icon class="dropdown-icon" [class.rotated]="isDropdownActive('machines')">keyboard_arrow_down</mat-icon>
+            <mat-icon class="dropdown-icon">keyboard_arrow_down</mat-icon>
           </a>
-          <div class="dropdown-menu" [class.active]="isDropdownActive('machines')">
+          <div class="dropdown-menu">
             <a href="/products/may-loc-nuoc-gia-dinh" class="dropdown-item">Máy lọc nước gia đình</a>
             <a href="/products/may-loc-nuoc-cong-nghiep" class="dropdown-item">Máy lọc nước công nghiệp</a>
             <a href="/products/may-loc-nuoc-van-phong" class="dropdown-item">Máy lọc nước văn phòng</a>
@@ -110,12 +167,12 @@
           </div>
         </div>
         
-        <div class="nav-item dropdown" (click)="onDropdownToggle('brands')">
+        <div class="nav-item dropdown">
           <a href="/brands" class="nav-link" routerLink="/brands" routerLinkActive="active">
             THƯƠNG HIỆU
-            <mat-icon class="dropdown-icon" [class.rotated]="isDropdownActive('brands')">keyboard_arrow_down</mat-icon>
+            <mat-icon class="dropdown-icon">keyboard_arrow_down</mat-icon>
           </a>
-          <div class="dropdown-menu" [class.active]="isDropdownActive('brands')">
+          <div class="dropdown-menu">
             <a href="/brands/aquafilter" class="dropdown-item">Aquafilter</a>
             <a href="/brands/pentair" class="dropdown-item">Pentair</a>
             <a href="/brands/ge" class="dropdown-item">GE</a>

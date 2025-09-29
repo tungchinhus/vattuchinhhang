@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { AuthService, User } from '../../services/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -11,11 +13,47 @@ import { MatButtonModule } from '@angular/material/button';
   templateUrl: './header.html',
   styleUrls: ['./header.scss']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit, OnDestroy {
   cartCount: number = 0;
-  activeDropdown: string | null = null;
+  isLoggedIn: boolean = false;
+  currentUser: User | null = null;
+  private userSubscription: Subscription = new Subscription();
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
+
+  ngOnInit(): void {
+    // Subscribe to user changes
+    this.userSubscription = this.authService.currentUser$.subscribe(user => {
+      this.currentUser = user;
+      this.isLoggedIn = !!user;
+    });
+  }
+
+  ngOnDestroy(): void {
+    // Unsubscribe to prevent memory leaks
+    this.userSubscription.unsubscribe();
+  }
+
+  /**
+   * Get user display name
+   */
+  getUserDisplayName(): string {
+    return this.currentUser?.name || 'Guest';
+  }
+
+  /**
+   * Get user email
+   */
+  getUserEmail(): string {
+    return this.currentUser?.email || '';
+  }
+
+  /**
+   * Get user profile picture
+   */
+  getUserProfilePicture(): string {
+    return this.currentUser?.picture || '';
+  }
 
   onSearch(searchTerm: string | Event): void {
     let searchValue: string;
@@ -40,15 +78,17 @@ export class HeaderComponent {
     // You can navigate to cart page or open cart modal
   }
 
-  onDropdownToggle(dropdownId: string): void {
-    if (this.activeDropdown === dropdownId) {
-      this.activeDropdown = null;
-    } else {
-      this.activeDropdown = dropdownId;
-    }
+
+  onProfileClick(): void {
+    console.log('Profile clicked');
+    // You can add profile functionality here
   }
 
-  isDropdownActive(dropdownId: string): boolean {
-    return this.activeDropdown === dropdownId;
+  /**
+   * Handle logout
+   */
+  onLogout(): void {
+    this.authService.logout();
+    console.log('User logged out');
   }
 }
