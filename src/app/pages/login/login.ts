@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { GOOGLE_CONFIG } from '../../config/google.config';
 import { AuthService, User } from '../../services/auth.service';
+import { RecaptchaService } from '../../services/recaptcha.service';
 
 // Declare Google Identity Services
 declare global {
@@ -29,7 +30,8 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private recaptchaService: RecaptchaService
   ) {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(3)]],
@@ -46,6 +48,9 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
     this.loadGoogleScript()
       .then(() => this.initializeGoogleSignIn())
       .catch((err) => console.error('Failed to load Google script', err));
+
+    // Prepare reCAPTCHA Enterprise
+    this.prepareRecaptcha();
   }
 
   /**
@@ -98,6 +103,42 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
     } else {
       console.error('Google Identity Services not loaded');
     }
+  }
+
+  /**
+   * Prepare reCAPTCHA Enterprise execution on submit
+   */
+  private prepareRecaptcha(): void {
+    const siteKey = '6LfY_9wrAAAAANBa4NThxT0RjkERLkyRLs9iOC8R';
+    const form = document.querySelector('form.login-form-content');
+    if (!form) {
+      return;
+    }
+    form.addEventListener('submit', (e) => {
+      // If form invalid, let Angular handle
+      if (this.loginForm.invalid) {
+        return;
+      }
+      e.preventDefault();
+      // Execute reCAPTCHA Enterprise then continue login
+      // @ts-ignore
+      grecaptcha.enterprise.ready(() => {
+        // @ts-ignore
+        grecaptcha.enterprise.execute(siteKey, { action: 'login' }).then((token: string) => {
+          // Verify token on backend first
+          this.recaptchaService.verifyToken(token, 'login').subscribe((ok) => {
+            if (ok) {
+              this.onLogin();
+            } else {
+              alert('Xác thực reCAPTCHA thất bại. Vui lòng thử lại.');
+            }
+          });
+        }).catch((err: any) => {
+          console.error('reCAPTCHA execute error', err);
+          this.onLogin();
+        });
+      });
+    }, { once: true });
   }
 
   /**

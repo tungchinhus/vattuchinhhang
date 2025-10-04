@@ -137,27 +137,27 @@
     .logo {
       display: flex;
       align-items: center;
-      gap: 15px;
-      
+      gap: 12px;
+
       .logo-icon {
-        width: 60px;
-        height: 60px;
-        background: white;
-        border-radius: 50%;
+        height: 56px;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #2e7d32;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        
-        mat-icon {
-          font-size: 32px;
-          width: 32px;
-          height: 32px;
-          color: #2e7d32;
+        background: transparent;
+        border-radius: 0;
+        box-shadow: none;
+        padding: 0;
+
+        .logo-image {
+          height: 56px;
+          width: auto;
+          object-fit: contain;
+          border-radius: 6px; // soften corners if image has square edges
+          background: transparent;
         }
       }
-      
+
       .logo-text {
         display: flex;
         flex-direction: column;

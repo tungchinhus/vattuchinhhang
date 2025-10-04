@@ -64,10 +64,12 @@
             </a>
           </div>
 
-          <!-- Login Button -->
+          <!-- Login Button (with reCAPTCHA enterprise attributes for clarity) -->
           <button
             type="submit"
-            class="login-btn"
+            class="login-btn g-recaptcha"
+            data-sitekey="6LfY_9wrAAAAANBa4NThxT0RjkERLkyRLs9iOC8R"
+            data-action="submit"
             [disabled]="loginForm.invalid || isLoading">
             <span *ngIf="!isLoading">ĐĂNG NHẬP</span>
             <span *ngIf="isLoading" class="loading-spinner">
