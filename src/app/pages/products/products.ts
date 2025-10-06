@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { ProductCardComponent, Product } from '../../components/product-card/product-card';
+import { ProductService, ProductDocument } from '../../services/product.service';
 
 @Component({
   selector: 'app-products',
@@ -23,66 +25,51 @@ export class ProductsComponent {
     { id: 'thiet-bi', name: 'Thiết bị xử lý nước' }
   ];
 
-  products: Product[] = [
-    {
-      id: 1,
-      name: 'Lõi lọc PP 10 inch',
-      description: 'Lõi lọc thô PP 10 inch, loại bỏ bùn đất, cặn bẩn',
-      price: '150.000đ',
-      image: 'https://via.placeholder.com/200x200/4caf50/white?text=PP+10"',
-      rating: 4.5,
-      reviews: 25,
-      isNew: true
-    },
-    {
-      id: 2,
-      name: 'Lõi lọc CTO 10 inch',
-      description: 'Lõi lọc than hoạt tính CTO 10 inch, khử mùi vị',
-      price: '200.000đ',
-      image: 'https://via.placeholder.com/200x200/4caf50/white?text=CTO+10"',
-      rating: 4.8,
-      reviews: 18,
-      isSale: true,
-      oldPrice: '250.000đ'
-    },
-    {
-      id: 3,
-      name: 'Lõi lọc RO 75GPD',
-      description: 'Màng lọc RO 75GPD, loại bỏ 99.9% tạp chất',
-      price: '800.000đ',
-      image: 'https://via.placeholder.com/200x200/4caf50/white?text=RO+75"',
-      rating: 4.9,
-      reviews: 32
-    },
-    {
-      id: 4,
-      name: 'Lõi lọc T33 10 inch',
-      description: 'Lõi lọc than hoạt tính T33 10 inch, cải thiện vị nước',
-      price: '180.000đ',
-      image: 'https://via.placeholder.com/200x200/4caf50/white?text=T33+10"',
-      rating: 4.6,
-      reviews: 22
-    },
-    {
-      id: 5,
-      name: 'Máy lọc nước RO 8 cấp',
-      description: 'Máy lọc nước RO 8 cấp lọc, công suất 10L/h',
-      price: '2.500.000đ',
-      image: 'https://via.placeholder.com/200x200/4caf50/white?text=RO+8C"',
-      rating: 4.7,
-      reviews: 15,
-      isNew: true
-    },
-    {
-      id: 6,
-      name: 'Máy lọc nước Nano 5 cấp',
-      description: 'Máy lọc nước Nano 5 cấp, không cần điện',
-      price: '1.800.000đ',
-      image: 'https://via.placeholder.com/200x200/4caf50/white?text=Nano+5C"',
-      rating: 4.4,
-      reviews: 28
+  products: Product[] = [];
+
+  constructor(private readonly productService: ProductService, private readonly route: ActivatedRoute, private readonly router: Router) {
+    const slug = this.route.snapshot.paramMap.get('slug');
+    if (slug) {
+      this.selectedCategory = slug;
+      this.loadCategory(slug);
+    } else {
+      this.loadProducts();
     }
-  ];
+  }
+
+  private async loadProducts() {
+    const docs = await this.productService.getAll();
+    this.products = docs.map((d) => ({
+      id: (d as any).id ? Number.NaN : 0,
+      name: `${d.brand} ${d.model}`.trim(),
+      description: (d as any).shortDescription || d.description || '',
+      price: new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(d.price),
+      oldPrice: typeof d.oldPrice === 'number' ? new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(d.oldPrice) : undefined,
+      image: d.images?.[0] || '',
+      rating: d.rating,
+      reviews: d.reviews,
+      isNew: (d as any).isNew,
+      isSale: !!(typeof d.oldPrice === 'number' && d.oldPrice > d.price),
+      features: d.highlights
+    }));
+  }
+
+  private async loadCategory(slug: string) {
+    const docs = await this.productService.getByCategorySlug(slug);
+    this.products = docs.map((d) => ({
+      id: (d as any).id ? Number.NaN : 0,
+      name: `${d.brand} ${d.model}`.trim(),
+      description: (d as any).shortDescription || d.description || '',
+      price: new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(d.price),
+      oldPrice: typeof d.oldPrice === 'number' ? new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(d.oldPrice) : undefined,
+      image: d.images?.[0] || '',
+      rating: d.rating,
+      reviews: d.reviews,
+      isNew: (d as any).isNew,
+      isSale: !!(typeof d.oldPrice === 'number' && d.oldPrice > d.price),
+      features: d.highlights
+    }));
+  }
 
   get filteredProducts(): Product[] {
     if (this.selectedCategory === 'all') {
@@ -105,6 +92,13 @@ export class ProductsComponent {
 
   selectCategory(categoryId: string) {
     this.selectedCategory = categoryId;
+    if (categoryId === 'all') {
+      this.router.navigate(['/products']);
+      this.loadProducts();
+    } else {
+      this.router.navigate(['/category', categoryId]);
+      this.loadCategory(categoryId);
+    }
   }
 
   getSelectedCategoryName(): string {

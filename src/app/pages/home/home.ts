@@ -16,42 +16,67 @@ export class HomeComponent {
   featuredProducts: Product[] = [
     {
       id: 1,
-      name: 'Lõi lọc PP 10 inch',
-      description: 'Lõi lọc thô PP 10 inch, loại bỏ bùn đất, cặn bẩn',
-      price: '150.000đ',
-      image: 'https://via.placeholder.com/200x200/4caf50/white?text=PP+10"',
-      rating: 4.5,
+      name: 'Máy nóng lạnh Karofi HCV206',
+      description: 'Máy nước nóng lạnh công nghiệp với công nghệ tiên tiến',
+      price: '5.490.000đ',
+      image: 'https://via.placeholder.com/200x200/4caf50/white?text=Karofi+HCV206',
+      rating: 4.8,
       reviews: 25,
-      isNew: true
+      isNew: true,
+      features: [
+        '3 vòi với 3 chế độ: Nóng – Lạnh – Nguội',
+        'Hệ thống 01 lõi lọc công nghệ SMAX : Gấp 2',
+        'Công nghệ làm nóng nhanh: 85-95°C',
+        'Công nghệ làm lạnh Chíp: 12-15°C'
+      ]
     },
     {
       id: 2,
-      name: 'Lõi lọc CTO 10 inch',
-      description: 'Lõi lọc than hoạt tính CTO 10 inch, khử mùi vị',
-      price: '200.000đ',
-      image: 'https://via.placeholder.com/200x200/4caf50/white?text=CTO+10"',
-      rating: 4.8,
+      name: 'Cây nước nóng lạnh hút bình Karofi HC19',
+      description: 'Máy nước nóng lạnh hút bình tự động siêu bền',
+      price: '7.050.000đ',
+      image: 'https://via.placeholder.com/200x200/d32f2f/white?text=Karofi+HC19',
+      rating: 4.9,
       reviews: 18,
       isSale: true,
-      oldPrice: '250.000đ'
+      oldPrice: '8.200.000đ',
+      features: [
+        'Công nghệ hút bình tự động thông minh',
+        'Hệ thống lọc nước RO 8 cấp',
+        'Nước nóng 85-95°C, lạnh 8-12°C',
+        'Đèn báo mức nước và nhiệt độ'
+      ]
     },
     {
       id: 3,
-      name: 'Lõi lọc RO 75GPD',
-      description: 'Màng lọc RO 75GPD, loại bỏ 99.9% tạp chất',
-      price: '800.000đ',
-      image: 'https://via.placeholder.com/200x200/4caf50/white?text=RO+75"',
-      rating: 4.9,
-      reviews: 32
+      name: 'Cây nước nóng lạnh Karofi HC18',
+      description: 'Máy nước nóng lạnh cao cấp với bình áp 20L',
+      price: '7.260.000đ',
+      image: 'https://via.placeholder.com/200x200/2e7d32/white?text=Karofi+HC18',
+      rating: 4.7,
+      reviews: 32,
+      features: [
+        'Bình áp 20L độ bền cao',
+        'Van chia 3 đường nước độc lập',
+        'Công nghệ làm lạnh không đá ',
+        'Hệ thống an toàn chống quá nhiệt'
+      ]
     },
     {
       id: 4,
-      name: 'Lõi lọc T33 10 inch',
-      description: 'Lõi lọc than hoạt tính T33 10 inch, cải thiện vị nước',
-      price: '180.000đ',
-      image: 'https://via.placeholder.com/200x200/4caf50/white?text=T33+10"',
-      rating: 4.6,
-      reviews: 22
+      name: 'Máy lọc RO 9 cấp Karofi Optimus Plus',
+      description: 'Máy lọc nước RO cao cấp với 9 cấp lọc',
+      price: '4.790.000đ',
+      image: 'https://via.placeholder.com/200x200/616161/white?text=RO+9+cap',
+      rating: 4.9,
+      reviews: 22,
+      isNew: true,
+      features: [
+        'Hệ thống lọc RO 9 cấp siêu sạch',
+        'Đèn LED hiển thị chế độ hoạt động',
+        'Báo đỏi lõi lọc tự động',
+        'Van chia áp cao tiết kiệm điện'
+      ]
     }
   ];
 

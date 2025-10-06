@@ -1,0 +1,39 @@
+<div class="product-detail" *ngIf="product() as p">
+  <div class="container">
+    <div class="gallery">
+      <img [src]="(p.images && p.images.length ? p.images[0] : '')" [alt]="p.model" class="main-image" />
+      <div class="thumbnails" *ngIf="p.images && p.images.length">
+        <img *ngFor="let img of p.images" [src]="img" [alt]="p.model" />
+      </div>
+    </div>
+    <div class="info">
+      <h1>{{ p.brand }} {{ p.model }}</h1>
+      <div class="price">
+        <span class="current">{{ p.price | currency:'VND':'symbol':'1.0-0':'vi' }}</span>
+        <span class="old" *ngIf="p.oldPrice">{{ p.oldPrice | currency:'VND':'symbol':'1.0-0':'vi' }}</span>
+      </div>
+      <p class="short" *ngIf="p.shortDescription as sd">{{ sd }}</p>
+      <ul class="highlights" *ngIf="p.highlights?.length">
+        <li *ngFor="let h of p.highlights">{{ h }}</li>
+      </ul>
+      <button mat-raised-button color="primary">
+        <mat-icon>shopping_cart</mat-icon>
+        Thêm vào giỏ
+      </button>
+    </div>
+  </div>
+  <div class="container description" *ngIf="p.description">
+    <h2>Giới thiệu</h2>
+    <p>{{ p.description }}</p>
+  </div>
+  <div class="container specs" *ngIf="p.specifications">
+    <h2>Thông số kỹ thuật</h2>
+    <table>
+      <tr *ngFor="let key of (p.specifications | keyvalue)">
+        <td>{{ key.key }}</td>
+        <td>{{ key.value }}</td>
+      </tr>
+    </table>
+  </div>
+</div>
+

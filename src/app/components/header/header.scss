@@ -1,3 +1,45 @@
+// Global body styling for sticky support
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+// Header Wrapper
+.header-wrapper {
+  position: sticky;
+  top: 0;
+  z-index: 99999 !important;
+  width: 100%;
+  transform: translateZ(0); // Force hardware acceleration
+  will-change: transform; // Optimize for sticky positioning
+  backdrop-filter: blur(0px); // Ensure header stays visible
+  
+  // Alternative approach: use fixed positioning as backup
+  &.header-fixed {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+}
+
+// Fallback for browsers that don't support sticky
+@supports not (position: sticky) {
+  .header-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 99999 !important;
+  }
+  
+  // Add padding to body to account for fixed header
+  body {
+    padding-top: 130px; // Approximate header height
+  }
+}
+
 // Top Header Bar
 .top-header {
   background-color: #2e7d32; // Dark green
@@ -140,21 +182,32 @@
       gap: 12px;
 
       .logo-icon {
-        height: 56px;
+        height: 60px;
+        width: 60px;
         display: flex;
         align-items: center;
         justify-content: center;
-        background: transparent;
-        border-radius: 0;
-        box-shadow: none;
+        background: #8bc34a; // Light green background
+        border-radius: 50%; // Perfect circle
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         padding: 0;
+        transition: all 0.3s ease;
+
+        &:hover {
+          transform: scale(1.05);
+          background: #9ccc65; // Even lighter green on hover
+          box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+        }
 
         .logo-image {
-          height: 56px;
-          width: auto;
-          object-fit: contain;
-          border-radius: 6px; // soften corners if image has square edges
+          height: 60px;
+          width: 60px;
+          object-fit: cover; // change to cover to fill the circle completely
+          border-radius: 50%; // make logo image perfectly round to hide white square
           background: transparent;
+          overflow: hidden;
+          filter: contrast(1.3) brightness(0.9);
+          -webkit-filter: contrast(1.3) brightness(0.9);
         }
       }
 
@@ -163,16 +216,16 @@
         flex-direction: column;
         
         .company-name {
-          font-size: 28px;
+          font-size: 18px;
           font-weight: bold;
-          color: #d32f2f; // Red
+          color: #d94a25fa; // Medium gray - cùng màu với CHÍNH HÃNG
           line-height: 1;
         }
         
         .company-subtitle {
           font-size: 18px;
-          font-weight: 500;
-          color: #2e7d32; // Green
+          font-weight: bold;
+          color: #d94a25fa; // Medium gray
           line-height: 1;
         }
       }
@@ -545,6 +598,7 @@
 
 // Navigation Bar
 .navigation-bar {
+  display: none; // Hide navigation bar completely
   background-color: #2e7d32; // Darker green for more professional look
   padding: 8px 0;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -866,6 +920,32 @@
     gap: 16px;
     text-align: center;
   }
+  
+  .main-header .header-left .logo {
+    justify-content: center;
+    
+    .logo-icon {
+      height: 56px;
+      width: 56px;
+      
+      .logo-image {
+        height: 50px;
+        width: 50px;
+        filter: contrast(1.5) brightness(0.8);
+        -webkit-filter: contrast(1.5) brightness(0.8);
+      }
+    }
+    
+    .logo-text {
+      .company-name {
+        font-size: 26px;
+      }
+      
+      .company-subtitle {
+        font-size: 17px;
+      }
+    }
+  }
 
   .main-header .header-center {
     max-width: 100%;
@@ -954,6 +1034,30 @@
   .logo {
     flex-direction: column;
     text-align: center;
+    gap: 8px;
+    
+    .logo-icon {
+      height: 52px;
+      width: 52px;
+      margin: 0 auto;
+      
+      .logo-image {
+        height: 46px;
+        width: 46px;
+        filter: contrast(1.5) brightness(0.8);
+        -webkit-filter: contrast(1.5) brightness(0.8);
+      }
+    }
+    
+    .logo-text {
+      .company-name {
+        font-size: 24px;
+      }
+      
+      .company-subtitle {
+        font-size: 16px;
+      }
+    }
   }
   
   .contact-info {

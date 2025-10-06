@@ -1,4 +1,22 @@
 
+<!-- Featured Products Section - MOVED TO TOP -->
+<section class="featured-products-section">
+  <div class="container">
+    <h2 class="section-title">Sản phẩm nổi bật</h2>
+    <div class="products-grid">
+      <app-product-card 
+        *ngFor="let product of featuredProducts" 
+        [product]="product">
+      </app-product-card>
+    </div>
+    <div class="section-footer">
+      <button mat-raised-button color="primary" routerLink="/products">
+        Xem tất cả sản phẩm
+      </button>
+    </div>
+  </div>
+</section>
+
 <!-- Features Section -->
 <section class="features-section">
   <div class="container">
@@ -30,24 +48,6 @@
           <button mat-button color="primary">Xem chi tiết</button>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- Featured Products Section -->
-<section class="featured-products-section">
-  <div class="container">
-    <h2 class="section-title">Sản phẩm nổi bật</h2>
-    <div class="products-grid">
-      <app-product-card 
-        *ngFor="let product of featuredProducts" 
-        [product]="product">
-      </app-product-card>
-    </div>
-    <div class="section-footer">
-      <button mat-raised-button color="primary" routerLink="/products">
-        Xem tất cả sản phẩm
-      </button>
     </div>
   </div>
 </section>

@@ -3,6 +3,16 @@
     <img [src]="product.image" [alt]="product.name">
     <div class="product-badge" *ngIf="product.isNew">Mới</div>
     <div class="product-badge sale" *ngIf="product.isSale">Giảm giá</div>
+    
+    <!-- Hover overlay với đặc điểm sản phẩm -->
+    <div class="hover-overlay" *ngIf="product.features && product.features.length > 0">
+      <div class="features-list">
+        <h4 class="features-title">Đặc điểm nổi bật:</h4>
+        <ul class="features-items">
+          <li *ngFor="let feature of product.features">{{ feature }}</li>
+        </ul>
+      </div>
+    </div>
   </div>
   
   <div class="product-info">

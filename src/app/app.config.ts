@@ -5,6 +5,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 
 import { routes } from './app.routes';
 import { loadingInterceptor } from './interceptors/loading.interceptor';
+import { provideFirebase } from './services/firebase';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -12,6 +13,11 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideAnimationsAsync(),
-    provideHttpClient(withInterceptors([loadingInterceptor]))
+    provideHttpClient(withInterceptors([loadingInterceptor])),
+    ...provideFirebase({
+      apiKey: 'AIzaSyDNAAFnoNMSEggvPetuDgYK54tqyXcF5c4',
+      authDomain: 'vattuchinhhang.firebaseapp.com',
+      projectId: 'vattuchinhhang-c5952'
+    })
   ]
 };

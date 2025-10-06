@@ -1,51 +1,64 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Create Favicon</title>
+    <title>Create New Favicon</title>
+    <meta charset="utf-8">
 </head>
 <body>
-    <canvas id="canvas" width="32" height="32" style="border: 1px solid #ccc;"></canvas>
-    <br><br>
-    <button onclick="downloadFavicon()">Download Favicon</button>
+    <h1>Instructions to Create Favicon.ico</h1>
+    <ol>
+        <li>Go to: <a href="https://convertio.co/svg-ico/" target="_blank">https://convertio.co/svg-ico/</a></li>
+        <li>Upload the favicon.svg file</li>
+        <li>Download the converted favicon.ico file</li>
+        <li>Replace the existing favicon.ico in this folder</li>
+    </ol>
+    
+    <h2>Current Favicon SVG Preview:</h2>
+    <div style="border: 2px solid #ccc; padding: 20px; width: 100px; height: 100px; margin: 20px;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="100%" height="100%">
+            <defs>
+                <linearGradient id="shieldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#4caf50;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#2e7d32;stop-opacity:1" />
+                </linearGradient>
+                <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#ff4444;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#d32f2f;stop-opacity:1" />
+                </linearGradient>
+            </defs>
+            
+            <!-- White circular background -->
+            <circle cx="16" cy="16" r="15" fill="white" stroke="#4caf50" stroke-width="2"/>
+            
+            <!-- Shield shape -->
+            <path d="M9 6 L9 12 Q9 18 16 26 Q23 18 23 12 L23 6 Q16 2 9 6 Z" 
+                  fill="url(#shieldGradient)" 
+                  stroke="#2e7d32" 
+                  stroke-width="1"/>
+            
+            <!-- CH Text -->
+            <text x="16" y="18" text-anchor="middle" font-family="Arial, sans-serif" 
+                  font-size="8" font-weight="bold" fill="url(#textGradient)">CH</text>
+                  
+            <!-- Small gear icon for H -->
+            <circle cx="18.5" cy="16.5" r="1.5" fill="#d32f2f"/>
+            <path d="M17 16.5 L18.5 15.5 L20 16.5 L18.5 17.5 Z" fill="#d32f2f" opacity="0.6"/>
+        </svg>
+    </div>
+    
+    <h2>Features of the new favicon:</h2>
+    <ul>
+        <li>✅ White circular background for visibility</li>
+        <li>✅ Green shield with gradient effect</li>
+        <li>✅ Red "CH" text with gradient</li>
+        <li>✅ Small gear icon replacing H crossbar</li>
+        <li>✅ Professional and modern design</li>
+        <li>✅ Will work well at small sizes</li>
+    </ul>
+    
     <script>
-        function createFavicon() {
-            const canvas = document.getElementById('canvas');
-            const ctx = canvas.getContext('2d');
-            
-            // Clear canvas
-            ctx.clearRect(0, 0, 32, 32);
-            
-            // Background circle (green)
-            ctx.fillStyle = '#2e7d32';
-            ctx.beginPath();
-            ctx.arc(16, 16, 16, 0, 2 * Math.PI);
-            ctx.fill();
-            
-            // Shopping bag body (white)
-            ctx.fillStyle = 'white';
-            ctx.fillRect(10, 14, 12, 10);
-            
-            // Shopping bag handles (white circles)
-            ctx.strokeStyle = 'white';
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.arc(12, 10, 2, 0, 2 * Math.PI);
-            ctx.stroke();
-            ctx.beginPath();
-            ctx.arc(20, 10, 2, 0, 2 * Math.PI);
-            ctx.stroke();
-        }
-        
-        function downloadFavicon() {
-            const canvas = document.getElementById('canvas');
-            const link = document.createElement('a');
-            link.download = 'favicon.ico';
-            link.href = canvas.toDataURL('image/x-icon');
-            link.click();
-        }
-        
-        // Create favicon on load
-        createFavicon();
+        console.log("New favicon SVG created successfully!");
+        console.log("Features: Shield logo, CH text, gear icon, gradients");
     </script>
 </body>
 </html>

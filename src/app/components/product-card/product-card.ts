@@ -14,6 +14,7 @@ export interface Product {
   reviews?: number;
   isNew?: boolean;
   isSale?: boolean;
+  features?: string[];
 }
 
 @Component({

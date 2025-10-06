@@ -47,7 +47,7 @@
         justify-content: center;
         font-size: 32px;
         font-weight: bold;
-        color: #2e7d32;
+        color: #616161;
         box-shadow: 0 4px 16px rgba(0,0,0,0.1);
       }
       
@@ -58,7 +58,7 @@
         .company-name-large {
           font-size: 36px;
           font-weight: bold;
-          color: #2e7d32;
+          color: #616161;
           line-height: 1;
         }
         
@@ -99,13 +99,13 @@
           font-weight: 500;
           
           &:hover {
-            background: #45a049;
+            background: #616161;
           }
         }
         
         .secondary-button {
-          color: #4caf50;
-          border-color: #4caf50;
+          color: #757575;
+          border-color: #757575;
           padding: 12px 24px;
           font-size: 16px;
           font-weight: 500;
@@ -156,7 +156,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 3px solid #4caf50;
+            border: 3px solid #757575;
             
             img {
               width: 80px;
@@ -169,7 +169,7 @@
             h3 {
               font-size: 14px;
               font-weight: 600;
-              color: #2e7d32;
+              color: #616161;
               margin-bottom: 8px;
             }
             
@@ -195,7 +195,7 @@
           width: 40px;
           height: 40px;
           border-radius: 50%;
-          background: #d32f2f;
+          background: #424242;
           color: white;
           border: none;
           display: flex;
@@ -206,7 +206,7 @@
           pointer-events: all;
           
           &:hover {
-            background: #b71c1c;
+            background: #616161;
             transform: scale(1.1);
           }
           
@@ -335,7 +335,7 @@
         h3 {
           font-size: 20px;
           font-weight: 600;
-          color: #2e7d32;
+          color: #616161;
           margin-bottom: 10px;
         }
         
@@ -354,33 +354,56 @@
   }
 }
 
-// Featured Products Section
+// Featured Products Section - ENHANCED FOR TOP POSITION
 .featured-products-section {
-  padding: 80px 0;
-  background: white;
+  padding: 40px 0 60px 0;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  margin-top: 20px;
+  border-bottom: 1px solid #e0e0e0;
   
   .section-title {
     text-align: center;
-    font-size: 32px;
-    font-weight: bold;
+    font-size: 2.5rem;
+    font-weight: 700;
     color: #2e7d32;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, #4caf50, #8bc34a);
+      border-radius: 2px;
+    }
   }
   
   .products-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    margin-bottom: 50px;
+    gap: 25px;
+    margin-bottom: 40px;
   }
   
   .section-footer {
     text-align: center;
     
     button {
-      padding: 12px 32px;
       font-size: 16px;
-      font-weight: 500;
+      padding: 12px 32px;
+      font-weight: 600;
+      border-radius: 25px;
+      box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+      transition: all 0.3s ease;
+      
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+      }
     }
   }
 }

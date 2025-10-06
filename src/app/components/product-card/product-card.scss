@@ -5,10 +5,35 @@
   overflow: hidden;
   transition: all 0.3s ease;
   position: relative;
+  cursor: pointer;
   
   &:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    
+    .product-image {
+      img {
+        transform: scale(1.05);
+      }
+      
+      .hover-overlay {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+    
+    .product-info {
+      .product-name {
+        color: #1976d2; // Blue color on hover
+        transition: color 0.3s ease;
+      }
+      
+      .add-to-cart-btn {
+        background: #1976d2;
+        transform: scale(1.02);
+        transition: all 0.3s ease;
+      }
+    }
   }
   
   .product-image {
@@ -27,9 +52,72 @@
       transition: transform 0.3s;
     }
     
-    &:hover img {
-      transform: scale(1.05);
+    .hover-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(25, 118, 210, 0.65) 0%, rgba(21, 101, 192, 0.65) 100%);
+      backdrop-filter: blur(1px);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      border-radius: 12px;
+      
+      .features-list {
+        color: white;
+        text-align: left;
+        max-width: 100%;
+        background: rgba(0, 0, 0, 0.3);
+        padding: 15px;
+        border-radius: 8px;
+        backdrop-filter: blur(2px);
+        
+        .features-title {
+          font-size: 16px;
+          font-weight: 600;
+          margin-bottom: 12px;
+          text-align: center;
+          color: white;
+          text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        .features-items {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          
+          li {
+            font-size: 13px;
+            line-height: 1.4;
+            margin-bottom: 8px;
+            padding-left: 16px;
+            position: relative;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            
+            &:before {
+              content: "•";
+              color: #fff;
+              font-weight: bold;
+              position: absolute;
+              left: 0;
+              text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            }
+            
+            &:last-child {
+              margin-bottom: 0;
+            }
+          }
+        }
+      }
     }
+    
+    // Hover effects moved to parent .product-card level
     
     .product-badge {
       position: absolute;
@@ -41,6 +129,7 @@
       border-radius: 4px;
       font-size: 12px;
       font-weight: 500;
+      z-index: 2;
       
       &.sale {
         background: #d32f2f;

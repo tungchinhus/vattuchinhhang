@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
@@ -19,7 +19,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   currentUser: User | null = null;
   private userSubscription: Subscription = new Subscription();
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService,
+    private elementRef: ElementRef
+  ) { }
 
   ngOnInit(): void {
     // Subscribe to user changes
@@ -27,6 +30,27 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.currentUser = user;
       this.isLoggedIn = !!user;
     });
+
+    // Ensure header stays sticky
+    this.checkHeaderVisibility();
+  }
+
+  @HostListener('window:scroll')
+  onScroll(): void {
+    this.checkHeaderVisibility();
+  }
+
+  private checkHeaderVisibility(): void {
+    const headerElement = this.elementRef.nativeElement.querySelector('.header-wrapper');
+    if (headerElement) {
+      // Check if sticky positioning is working
+      const rect = headerElement.getBoundingClientRect();
+      if (window.scrollY > 50 && rect.top <= 0) {
+        headerElement.classList.add('header-fixed');
+      } else {
+        headerElement.classList.remove('header-fixed');
+      }
+    }
   }
 
   ngOnDestroy(): void {
